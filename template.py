@@ -86,10 +86,9 @@ def helpParse(com, args):
         for z, a in props.items():
             print('{:<8}{:<40}'.format('', z + ':'))
             for b, c in a.items():
-                tmp_name, tmp_req, tmp_comment = fetchSyntax(b, c)
+                tmp_name, tmp_req, tmp_cmn = fetchSyntax(b, c)
                 print('{:<14}{:<26}{}'
-                      .format('', tmp_req[0] + tmp_name + tmp_req[1],
-                              tmp_comment))
+                      .format('', tmp_req[0] + tmp_name + tmp_req[1], tmp_cmn))
 
 
 if any(r in sys.argv for r in ['--help', '-h']):
@@ -113,8 +112,7 @@ elif len(sys.argv) > 1 and sys.argv[1] in commands.keys():
                     and len(sys.argv) > (2 + var['arg_offset']):
                 arg_set, tgl_d = [2 + var['arg_offset'],
                                   commands[sys.argv[1]]['toggle'].items()]
-                toggle_calls = [toggler
-                                for _, com_data in tgl_d
+                toggle_calls = [toggler for _, com_data in tgl_d
                                 for toggler in com_data['call']]
                 if sys.argv[arg_set] not in toggle_calls:
                     val = sys.argv[2 + var['arg_offset']]
